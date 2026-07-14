@@ -2,394 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday, Sidra! 🎉</title>
-  <style>
-    :root {
-      --bg1: #1a0b2e;
-      --bg2: #2d1b4e;
-      --accent: #ff6ec7;
-      --accent2: #ffd93d;
-      --text: #fff5fb;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      color: var(--text);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2)) fixed;
-      min-height: 100vh;
-      overflow-x: hidden;
-      text-align: center;
-    }
-
-    /* ---------- HERO ---------- */
-    .hero {
-      position: relative;
-      z-index: 2;
-      min-height: 96vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1.5rem 2rem;
-      animation: rise 1.2s ease-out both;
-    }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-photo {
-      width: min(240px, 60vw);
-      height: min(240px, 60vw);
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid transparent;
-      background: linear-gradient(var(--bg1), var(--bg1)) padding-box,
-                  linear-gradient(135deg, var(--accent), var(--accent2)) border-box;
-      box-shadow: 0 12px 45px rgba(255, 110, 199, 0.45);
-      margin-bottom: 1.8rem;
-      animation: bob 4s ease-in-out infinite;
-    }
-    .eyebrow {
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: var(--accent2);
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-    h1 {
-      font-size: clamp(2.5rem, 9vw, 5rem);
-      line-height: 1.05;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
-    }
-    .message {
-      font-size: clamp(1rem, 3vw, 1.25rem);
-      line-height: 1.7;
-      color: #f3e8ff;
-      opacity: 0.92;
-      margin-bottom: 2.5rem;
-      max-width: 640px;
-    }
-    .btn {
-      background: linear-gradient(90deg, var(--accent), #c84bd6);
-      color: white;
-      border: none;
-      padding: 0.9rem 2.2rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 8px 30px rgba(255, 110, 199, 0.4);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 40px rgba(255, 110, 199, 0.55); }
-    .btn:active { transform: translateY(0) scale(0.98); }
-    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-    .scroll-hint {
-      margin-top: 3rem;
-      font-size: 0.85rem;
-      opacity: 0.6;
-      animation: bob 2s ease-in-out infinite;
-    }
-
-    /* ---------- GALLERY ---------- */
-    .gallery {
-      position: relative;
-      z-index: 2;
-      padding: 2rem 1.5rem 5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .gallery h2 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      margin-bottom: 0.6rem;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gallery > p { opacity: 0.75; margin-bottom: 2.5rem; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .shot {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      cursor: pointer;
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    .shot.visible { animation: rise 0.8s ease-out both; }
-    .shot:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 50px rgba(255,110,199,0.25); }
-    .shot img {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      display: block;
-    }
-    .shot figcaption {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 2.2rem 1rem 0.9rem;
-      background: linear-gradient(transparent, rgba(15,5,30,0.88));
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-align: left;
-    }
-    .shot figcaption span {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 400;
-      opacity: 0.8;
-      margin-top: 2px;
-    }
-
-    /* ---------- LIGHTBOX ---------- */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 3, 22, 0.92);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 50;
-      padding: 2rem;
-      cursor: zoom-out;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      max-width: min(92vw, 1000px);
-      max-height: 78vh;
-      border-radius: 14px;
-      box-shadow: 0 25px 80px rgba(0,0,0,0.6);
-    }
-    .lightbox p { margin-top: 1rem; font-size: 1.05rem; max-width: 700px; }
-    .lightbox .close {
-      position: absolute;
-      top: 1.2rem; right: 1.6rem;
-      font-size: 2rem;
-      color: white;
-      opacity: 0.7;
-      cursor: pointer;
-      user-select: none;
-    }
-    .lightbox .close:hover { opacity: 1; }
-
-    /* ---------- FX LAYERS ---------- */
-    .balloons { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-    .balloon {
-      position: absolute;
-      bottom: -140px;
-      width: 46px; height: 58px;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: float linear infinite;
-    }
-    .balloon::after {
-      content: "";
-      position: absolute;
-      bottom: -40px; left: 50%;
-      width: 1px; height: 40px;
-      background: rgba(255,255,255,0.4);
-    }
-    @keyframes float { to { transform: translateY(-118vh) rotate(20deg); } }
-
-    .confetti {
-      position: fixed;
-      width: 10px; height: 14px;
-      top: -20px;
-      z-index: 5;
-      pointer-events: none;
-      border-radius: 2px;
-      animation: fall linear forwards;
-    }
-    @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: 0.9; } }
-
-    footer { padding: 1.5rem; font-size: 0.8rem; opacity: 0.5; position: relative; z-index: 2; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy 1st Birthday, Sidra ❤️</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="balloons" id="balloons"></div>
 
-  <section class="hero">
-    <img class="hero-photo" src="photos/8.jpg" alt="Sidra smiling brightly" />
-    <p class="eyebrow">A little something for you</p>
-    <h1>Happy Birthday,<br>Sidra!</h1>
-    <p class="message">
-      Wishing our tiniest superstar a day as bright and wonderful as her smile. 🌸
-      In one little year you've been to the moon, flown around the world, run a
-      boardroom, and stolen every heart along the way. Here's to many more adventures!
-    </p>
-    <button class="btn" id="celebrate">🎉 Make a wish</button>
-    <div class="scroll-hint">⬇ scroll for Sidra's little adventures ⬇</div>
-  </section>
-
-  <section class="gallery">
-    <h2>Sidra's Little Adventures 📸</h2>
-    <p>One tiny star, so many worlds already conquered.</p>
-    <div class="grid">
-      <figure class="shot" data-caption="Reaching the moon before turning one 🌙 — ISRO's youngest recruit.">
-        <img src="photos/1.jpg" alt="Sidra sitting on a crescent moon with ISRO rockets and planets behind her" loading="lazy" />
-        <figcaption>To the Moon 🚀<span>Future ISRO scientist</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Cleared for takeoff ✈️ — waving hello to the whole wide world.">
-        <img src="photos/2.jpg" alt="Sidra in a red plaid outfit and cap sitting in a toy airplane, hand raised" loading="lazy" />
-        <figcaption>Around the World ✈️<span>Captain of her adventures</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="The littlest BOSS 💼 — closing deals, one giggle at a time.">
-        <img src="photos/3.jpg" alt="Sidra in a black suit on a tiny armchair holding a money bag, BOSS sign beside her" loading="lazy" />
-        <figcaption>Little Boss 💼<span>CEO of everyone's hearts</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Off to new horizons 🧭 — every map is an invitation.">
-        <img src="photos/4.jpg" alt="Sidra in red plaid seated in a toy plane before a vintage world map and compass" loading="lazy" />
-        <figcaption>Sky Explorer 🧭<span>Little aviator</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Solving the universe's equations 🧮 — one adorable theorem at a time.">
-        <img src="photos/5.jpg" alt="Sidra in dungarees at a tiny desk in front of a chalkboard full of maths equations" loading="lazy" />
-        <figcaption>Tiny Mathematician 🧮<span>Genius in the making</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Deep in thought 📐 — plotting her next big discovery.">
-        <img src="photos/6.jpg" alt="Sidra sitting on a red chair in front of a chalkboard of equations, holding toys" loading="lazy" />
-        <figcaption>Little Thinker 📐<span>Big ideas, tiny hands</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Hatching mischief 🐰 — among the bunnies and blossoms.">
-        <img src="photos/7.jpg" alt="Sidra crawling out of a giant egg surrounded by bunnies and spring flowers" loading="lazy" />
-        <figcaption>Spring Explorer 🌸<span>Fresh out of the egg</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Brighter than a field of sunflowers 🌻 — pure baby joy.">
-        <img src="photos/8.jpg" alt="Sidra smiling brightly in front of a sunflower backdrop" loading="lazy" />
-        <figcaption>Pure Sunshine 🌻<span>The brightest smile</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Royalty in maroon 👑 — the queen of every celebration.">
-        <img src="photos/9.jpg" alt="Sidra standing in a maroon gown with a flower headband beside a white piano" loading="lazy" />
-        <figcaption>Little Princess 👑<span>Crowned with cuteness</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Money bags and big dreams 💰 — the boardroom's favorite.">
-        <img src="photos/10.jpg" alt="Sidra in a black suit seated in a leather chair holding a dollar money bag" loading="lazy" />
-        <figcaption>Boss Mode 💰<span>Tiny tycoon</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Biggest smile at 30,000 feet ✈️ — adventure suits her.">
-        <img src="photos/11.jpg" alt="Sidra beaming in a toy airplane in front of a vintage world map" loading="lazy" />
-        <figcaption>Happy Landings ✈️<span>Adventure suits her</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Twinkling among the stars 🌌 — a little cosmic dream.">
-        <img src="photos/12.jpg" alt="Sidra in a floral dress beside a crescent moon among stars and planets" loading="lazy" />
-        <figcaption>Cosmic Princess 🌌<span>Written in the stars</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Gazing at the big questions 🔭 — the world is her classroom.">
-        <img src="photos/13.jpg" alt="Sidra on a red chair looking up at a chalkboard full of equations" loading="lazy" />
-        <figcaption>Curious Genius 🔭<span>Wondering about it all</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Peeking out to say hello 🌷 — spring's sweetest surprise.">
-        <img src="photos/14.jpg" alt="Sidra crawling among spring flowers and a bunny beside a giant egg" loading="lazy" />
-        <figcaption>Spring Sprout 🌷<span>Blooming beauty</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="A melody in maroon 🎹 — the tiniest pianist takes the stage.">
-        <img src="photos/15.jpg" alt="Sidra in a maroon gown seated at a small white piano" loading="lazy" />
-        <figcaption>Little Maestro 🎹<span>Music in her heart</span></figcaption>
-      </figure>
-
-      <figure class="shot" data-caption="Snug in her egg 🥚 — egg-stra adorable this spring.">
-        <img src="photos/16.jpg" alt="Sidra sitting inside a large egg prop surrounded by Easter bunnies and flowers" loading="lazy" />
-        <figcaption>Easter Darling 🥚<span>Egg-stra special</span></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <div class="lightbox" id="lightbox">
-    <span class="close">✕</span>
-    <img src="" alt="" id="lightboxImg" />
-    <p id="lightboxCaption"></p>
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loader">
+    <div class="loader-crown">👑</div>
+    <div class="loader-name">Sidra</div>
+    <div class="loader-bar"><span></span></div>
+    <div class="loader-sub">A little something from Mama…</div>
   </div>
 
-  <footer>Made with ❤️ for Sidra</footer>
+  <!-- ===== GLOBAL FX CANVAS (fireworks / confetti) ===== -->
+  <canvas id="fx"></canvas>
 
-  <script>
-    // Floating balloons
-    const colors = ["#ff6ec7", "#ffd93d", "#6ec7ff", "#b06eff", "#6effa3"];
-    const balloonLayer = document.getElementById("balloons");
-    for (let i = 0; i < 14; i++) {
-      const b = document.createElement("div");
-      b.className = "balloon";
-      b.style.left = Math.random() * 100 + "vw";
-      b.style.background = colors[i % colors.length];
-      b.style.animationDuration = 6 + Math.random() * 8 + "s";
-      b.style.animationDelay = Math.random() * 8 + "s";
-      balloonLayer.appendChild(b);
-    }
+  <!-- ===== MUSIC CONTROL ===== -->
+  <button id="musicBtn" title="Play / pause music" aria-label="Toggle music">🔇</button>
+  <audio id="bgm" loop preload="auto">
+    <source src="music/song.mp3" type="audio/mpeg" />
+  </audio>
 
-    // Confetti burst
-    function burst() {
-      for (let i = 0; i < 120; i++) {
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.background = colors[Math.floor(Math.random() * colors.length)];
-        c.style.animationDuration = 2 + Math.random() * 2.5 + "s";
-        c.style.animationDelay = Math.random() * 0.4 + "s";
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 5000);
-      }
-    }
-    document.getElementById("celebrate").addEventListener("click", burst);
-    window.addEventListener("load", burst);
+  <!-- ===== NAV DOTS ===== -->
+  <nav id="dots"></nav>
 
-    // Reveal gallery cards on scroll
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          e.target.style.animationDelay = (i % 4) * 0.12 + "s";
-          e.target.classList.add("visible");
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll(".shot").forEach(s => observer.observe(s));
+  <!-- ===== PREV / NEXT ARROWS ===== -->
+  <button class="nav-arrow" id="prevBtn" aria-label="Previous">‹</button>
+  <button class="nav-arrow" id="nextBtn" aria-label="Next">›</button>
 
-    // Lightbox
-    const lb = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lightboxImg");
-    const lbCap = document.getElementById("lightboxCaption");
-    document.querySelectorAll(".shot").forEach(shot => {
-      shot.addEventListener("click", () => {
-        const img = shot.querySelector("img");
-        lbImg.src = img.src;
-        lbImg.alt = img.alt;
-        lbCap.textContent = shot.dataset.caption;
-        lb.classList.add("open");
-      });
-    });
-    lb.addEventListener("click", () => lb.classList.remove("open"));
-    document.addEventListener("keydown", e => { if (e.key === "Escape") lb.classList.remove("open"); });
-  </script>
+  <!-- ===== PAGES ===== -->
+  <main id="deck">
+
+    <!-- PAGE 1 — LUXURY WELCOME -->
+    <section class="page page--welcome active" data-name="Welcome">
+      <div class="layer stars"></div>
+      <div class="layer balloons"></div>
+      <div class="layer glitter"></div>
+      <div class="content">
+        <p class="eyebrow reveal">✦ A Royal Celebration ✦</p>
+        <h1 class="title-gold reveal">Happy 1<sup>st</sup> Birthday</h1>
+        <h2 class="title-name reveal">Sidra <span class="heart">❤️</span></h2>
+        <p class="subtitle reveal">Our little princess turns one</p>
+        <button class="cta reveal" data-next>Begin the Celebration ✨</button>
+      </div>
+    </section>
+
+    <!-- PAGE 2 — OUR LITTLE PRINCESS -->
+    <section class="page page--princess" data-name="Princess">
+      <div class="layer clouds"></div>
+      <div class="layer butterflies"></div>
+      <div class="layer twinkle"></div>
+      <div class="content">
+        <div class="crown-float">👶</div>
+        <h2 class="title-gold reveal">Our Little Princess</h2>
+        <div class="princess-photo reveal">
+          <img src="photos/9.jpg" alt="Sidra, our little princess" />
+        </div>
+        <p class="subtitle reveal">Sweeter than every dream we ever dreamed.</p>
+      </div>
+    </section>
+
+    <!-- PAGE 3 — A LETTER FROM MAMA -->
+    <section class="page page--letter" data-name="Letter">
+      <div class="layer hearts-bg"></div>
+      <div class="content letter-wrap">
+        <h2 class="title-gold reveal">A Letter From Mama 💖</h2>
+        <div class="letter-card reveal">
+          <p class="typed" id="letterText"></p>
+          <span class="caret" id="caret">|</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 — BIRTHDAY CELEBRATION -->
+    <section class="page page--cake" data-name="Cake">
+      <div class="content">
+        <h2 class="title-gold reveal">Make a Wish, Sidra 🎂</h2>
+        <p class="subtitle reveal" id="cakeHint">Tap the flame to blow out the candle…</p>
+
+        <div class="cake-stage reveal">
+          <div class="cake">
+            <div class="candle">
+              <div class="flame" id="flame"></div>
+              <div class="wick"></div>
+            </div>
+            <div class="tier tier-top"></div>
+            <div class="tier tier-mid"></div>
+            <div class="tier tier-bottom"></div>
+            <div class="plate"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5 — MEMORY GALLERY -->
+    <section class="page page--gallery" data-name="Gallery">
+      <div class="layer hearts-bg"></div>
+      <div class="content">
+        <h2 class="title-gold reveal">Sweet Memories 🎁</h2>
+        <p class="subtitle reveal">One little year, a thousand precious moments.</p>
+
+        <div class="slideshow reveal">
+          <button class="slide-arrow" id="slidePrev" aria-label="Previous photo">‹</button>
+          <div class="slide-frame">
+            <img id="slideImg" src="photos/1.jpg" alt="Memory of Sidra" />
+            <div class="slide-shine"></div>
+          </div>
+          <button class="slide-arrow" id="slideNext" aria-label="Next photo">›</button>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </section>
+
+    <!-- PAGE 6 — WISHES & DUAS -->
+    <section class="page page--wishes" data-name="Wishes">
+      <div class="layer twinkle"></div>
+      <div class="layer glitter"></div>
+      <div class="content">
+        <div class="crown-float">🤲</div>
+        <h2 class="title-gold reveal">Wishes &amp; Duas ✨</h2>
+        <div class="dua-card reveal">
+          <p>
+            May Allah bless you with endless happiness, protect you from every harm,
+            grant you good health, strong Iman, and a life filled with success,
+            mercy, and countless blessings.
+          </p>
+          <p class="ameen">Ameen 🤍</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 7 — GRAND FINALE -->
+    <section class="page page--finale" data-name="Finale">
+      <div class="layer roses"></div>
+      <div class="layer hearts-bg"></div>
+      <div class="layer glitter"></div>
+      <div class="content">
+        <h2 class="title-name big reveal">Happy Birthday<br>Sidra <span class="heart">❤️</span></h2>
+        <p class="subtitle reveal">Love You Forever, my little angel.</p>
+        <button class="cta reveal" id="replayBtn">Celebrate Again 🎆</button>
+        <p class="signature reveal">Made with ❤️ by Mama</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
